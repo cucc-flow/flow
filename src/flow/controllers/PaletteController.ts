@@ -7,8 +7,8 @@ import {
 	Post,
 	Put,
 } from '@nestjs/common';
-import { ITemplate } from '../../interfaces/ITemplate';
-import { PaletteRepository } from '../../repositories/PaletteRepository';
+import { ITemplate } from '../interfaces/ITemplate';
+import { PaletteRepository } from '../repositories/PaletteRepository';
 
 @Controller()
 export class PaletteController {
