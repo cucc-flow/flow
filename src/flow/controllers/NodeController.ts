@@ -7,8 +7,8 @@ import {
 	Post,
 	Put,
 } from '@nestjs/common';
-import { INodeWithPosition } from '../interfaces/ILayer';
-import { NodeRepository } from '../repositories/NodeRepository';
+import { INodeWithPosition } from '../../interfaces/ILayer';
+import { NodeRepository } from '../../repositories/NodeRepository';
 
 @Controller()
 export class NodeController {

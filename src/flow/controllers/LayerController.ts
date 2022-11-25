@@ -7,8 +7,8 @@ import {
 	Post,
 	Put,
 } from '@nestjs/common';
-import { ILayer } from '../interfaces/ILayer';
-import { LayerRepository } from '../repositories/LayerRepository';
+import { ILayer } from '../../interfaces/ILayer';
+import { LayerRepository } from '../../repositories/LayerRepository';
 
 @Controller()
 export class LayerController {

@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 
 // Services
-import { ConfigurationService } from './services/ConfigurationService';
+import { ConfigurationService } from './flow/services/ConfigurationService';
 
 // Repositories
-import { ConnectionRepository } from './repositories/ConnectionRepository';
-import { LayerRepository } from './repositories/LayerRepository';
-import { NodeRepository } from './repositories/NodeRepository';
-import { PaletteRepository } from './repositories/PaletteRepository';
+import { ConnectionRepository } from './flow/repositories/ConnectionRepository';
+import { LayerRepository } from './flow/repositories/LayerRepository';
+import { NodeRepository } from './flow/repositories/NodeRepository';
+import { PaletteRepository } from './flow/repositories/PaletteRepository';
 
 // Controllers
-import { PaletteController } from './controllers/PaletteController';
-import { LayerController } from './controllers/LayerController';
-import { NodeController } from './controllers/NodeController';
-import { ConnectionController } from './controllers/ConnectionController';
+import { PaletteController } from './flow/controllers/PaletteController';
+import { LayerController } from './flow/controllers/LayerController';
+import { NodeController } from './flow/controllers/NodeController';
+import { ConnectionController } from './flow/controllers/ConnectionController';
 
 @Module({
 	imports: [],
