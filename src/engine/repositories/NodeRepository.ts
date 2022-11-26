@@ -3,7 +3,7 @@ import { Node } from "../entities/Node";
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class NodeRepository {
-    private nodes: Node[];
+    private nodes: Node[] = [];
 
     public Add(node: Node): void {
         this.nodes.push(node);

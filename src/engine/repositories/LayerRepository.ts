@@ -4,7 +4,7 @@ import { Layer } from "../entities/Layer";
 
 @Injectable()
 export class LayerRepository {
-    private layers: Layer[];
+    private layers: Layer[] = [];
 
     constructor(
         private moduleRef: ModuleRef
@@ -12,6 +12,7 @@ export class LayerRepository {
 
     public async CreateLayer(id: string) {
         let layer: Layer = await this.moduleRef.resolve(Layer);
+        layer.id = id;
         this.layers.push(layer);
     }
 

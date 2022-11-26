@@ -22,9 +22,14 @@ export class Layer {
         this.connectionRepository.Add(connection);
     }
 
-    public CreateNode(id: string, templateId: string, configuration: any): void {
-        let node: Node;// = new Node(id);
+    public CreateNode(id: string, templateId: string): void {
         let template: Template = this.templateRepository.FindById(templateId);
+
+        let node: Node = new Node(id, template);
         this.nodeRepository.Add(node);
+    }
+
+    public FindNodeById(id: string): Node {
+        return this.nodeRepository.FindById(id);
     }
 }
