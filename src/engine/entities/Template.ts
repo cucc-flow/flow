@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { EnvironmentService } from "../services/EnvironmentService";
+import { Environment } from "../Environment";
 
 export enum TemplateScope {
     Node,
@@ -18,7 +18,7 @@ export class Template extends EventEmitter {
     }
 
     constructor (
-        private readonly environmentService: EnvironmentService,
+        private readonly environmentService: Environment,
         public readonly id: string,
         public readonly scope: TemplateScope,
         private _code: string
@@ -28,12 +28,8 @@ export class Template extends EventEmitter {
     }
 
     public UpdateCode(code: string) {
-        try {
-            let $ = this.environmentService.environment;
-            this._type = eval(`(${code})`);
-        } catch(e) {
-            console.log("syntax", e);
-        }
+        let $ = this.environmentService.environment;
+        this._type = eval(`(${code})`);
         
         this._code = code;
         this.emit('updated');

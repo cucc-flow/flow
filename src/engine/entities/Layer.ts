@@ -1,35 +1,32 @@
-import { Injectable, Scope } from "@nestjs/common";
-import { ConnectionRepository } from "../repositories/ConnectionRepository";
-import { NodeRepository } from "../repositories/NodeRepository";
-import { TemplateRepository } from "../repositories/TemplateRepository";
-import { MessagingService } from "../services/MessagingService";
-import { Connection } from "./Connection";
-import { Node } from "./Node";
+import { Flow } from "../Flow";
+import { Connection, IReceiver, ISender } from "./Connection";
+import { Node } from "../environment/Node";
 import { Template } from "./Template";
 
-@Injectable({ scope: Scope.TRANSIENT })
 export class Layer {
-    public id: string;
+    public readonly connections: Connection[] = [];
+    public readonly nodes: Node[] = [];
 
     constructor(
-        private templateRepository: TemplateRepository,
-        private nodeRepository: NodeRepository,
-        private connectionRepository: ConnectionRepository,
-        private messagingService: MessagingService
+        private readonly flow: Flow,
+        public readonly id: string
     ) {}
 
-    public AddConnection(connection: Connection): void {
-        this.connectionRepository.Add(connection);
+    public AddConnection(id: string, from: ISender, to: IReceiver): void {
+        this.connections.push(new Connection(id, this.nodes, from, to));
     }
 
     public CreateNode(id: string, templateId: string): void {
-        let template: Template = this.templateRepository.FindById(templateId);
-
-        let node: Node = new Node(id, template);
-        this.nodeRepository.Add(node);
+        let template: Template = this.flow.templates.find(t => t.id === templateId);
+        let node: Node = new template.type(id, this);
+        if (node.id === id) {
+            this.nodes.push(node);
+        } else {
+            console.log("Invalid operation");
+        }
     }
 
-    public FindNodeById(id: string): Node {
-        return this.nodeRepository.FindById(id);
+    public Node(id: string) {
+        return this.nodes.find(node => node.id === id);
     }
 }
