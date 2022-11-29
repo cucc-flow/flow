@@ -1,4 +1,4 @@
-import { IEntity } from '@cucc-flow/common/src/entityManager';
+import { IEntity } from '../../entityManager';
 
 export interface IConnection extends IEntity {
 	from: {

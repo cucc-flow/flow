@@ -1,5 +1,5 @@
 import { ILayer } from '../interfaces/ILayer';
-import { ArrayBasedRepository } from '@cucc-flow/common/src/entityManager';
+import { ArrayBasedRepository } from '../../entityManager';
 import { ConfigurationService } from '../services/ConfigurationService';
 import { Injectable } from '@nestjs/common';
 

@@ -1,5 +1,5 @@
 
-import { IEntity } from '@cucc-flow/common/src/entityManager';
+import { IEntity } from '../../entityManager';
 
 export interface ITemplate extends IEntity {
 	name: string;

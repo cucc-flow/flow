@@ -1,0 +1,61 @@
+{
+  "palette": [
+    {
+      "id": "trigger",
+      "name": "Trigger",
+      "category": "Common",
+      "type": "Instance",
+      "backend": "class extends $.Node { output = new $.Output(\"Output\"); _interval; constructor(id, channel) { super(id, channel); } configure(config) { console.log('config trigger node'); this._interval = setInterval(() => { this.output.Send(\"Hello\"); }, 10000); } destructor() { clearInterval(this._interval); } }",
+      "frontend": "",
+      "template": ""
+    },
+    {
+      "id": "consumer",
+      "name": "Consumer",
+      "category": "Common",
+      "type": "Instance",
+      "backend": "class extends $.Node { input = new $.Input(\"Input\"); constructor(id, channel) { super(id, channel); this.input.on(\"updated\", (msg) => { this.error(msg); }); } configure(config) { console.log('config debug node'); } }",
+      "frontend": "",
+      "template": ""
+    },
+    {
+      "id": "logger",
+      "name": "Logger",
+      "category": "Common",
+      "type": "Service",
+      "backend": "class extends $.Node {}",
+      "frontend": "",
+      "template": ""
+    }
+  ],
+  "services": [],
+  "layers": [
+    {
+      "id": "id",
+      "name": "Default",
+      "flow": {
+        "nodes": [
+          {
+            "id": "uuid1",
+            "definitionId": "trigger",
+            "configuration": {},
+            "position": { "x": 0, "y": 0 }
+          },
+          {
+            "id": "uuid2",
+            "definitionId": "consumer",
+            "configuration": {},
+            "position": { "x": 0, "y": 0 }
+          }
+        ],
+        "connections": [
+          {
+            "id": "uuid1",
+            "from": { "node": "uuid1", "output": "output" },
+            "to": { "node": "uuid2", "input": "input" }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -18,7 +18,7 @@ export class ConfigurationService {
 
 	constructor() {
 		this.Application = JSON.parse(
-			fs.readFileSync(process.env.NODE_CONFIG, 'utf8'),
+			fs.readFileSync(process.env.NODE_CONFIG || './node_config.json', 'utf8'),
 		) as any as IApplication;
 	}
 }
