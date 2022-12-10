@@ -24,14 +24,34 @@ export class Template extends EventEmitter {
         private _code: string
     ) {
         super();
-        this.UpdateCode(_code);
+        //this.UpdateCode(_code);
     }
 
-    public UpdateCode(code: string) {
+    public async UpdateCode(code: string) {
         let $ = this.environmentService.environment;
-        this._type = eval(`(${code})`);
-        
-        this._code = code;
-        this.emit('updated');
+        const dataUri = 'data:text/javascript;charset=utf-8,' + encodeURIComponent(code);
+        await import(dataUri)
+            .then((imported) => {
+                this._type = imported.Node;
+                this._code = code;
+                this.emit('updated');
+            })
+            .catch(e => console.log(e));
+
+        //this._type = eval(`(${code})`);
     }
 }
+
+/*
+const js = `
+let e = require("events")
+export class Node {}
+`;
+const dataUri = 'data:text/javascript;charset=utf-8,'
+  + encodeURIComponent(js);
+import(dataUri)
+  .then((namespaceObject) => {
+    console.log(namespaceObject);
+  })
+  .catch(e => console.log(e));
+*/

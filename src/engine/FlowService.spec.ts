@@ -18,26 +18,28 @@ describe('FlowService', () => {
 
 	describe('root', () => {
 		it('should return "Hello World!"', async () => {
-			flow.AddTemplate('sender', TemplateScope.Node, `
-class extends $.Node {
-	signal = new $.Signal();
+			flow.AddTemplate('sender', TemplateScope.Node, null);
+			await flow.templates.find(t => t.id === 'sender').UpdateCode(`
+			class extends $.Node {
+				signal = new $.Signal();
 
-	configure() {
-		setInterval(() => {
-			this.signal.emit("updated", "Hello world");
-		}, 500);
-	}
-}`);
-			flow.AddTemplate('receiver', TemplateScope.Node, `
-class extends $.Node {
-	slot = new $.Slot();
+				configure() {
+					setInterval(() => {
+						this.signal.emit("updated", "Hello world");
+					}, 500);
+				}
+			}`);
+			flow.AddTemplate('receiver', TemplateScope.Node, null);
+			await flow.templates.find(t => t.id === 'receiver').UpdateCode(`
+			class extends $.Node {
+				slot = new $.Slot();
 
-	configure() {
-		this.slot.on("updated", (from, to) => {
-			console.log(from);
-		})
-	}
-}`);
+				configure() {
+					this.slot.on("updated", (from, to) => {
+						console.log(from);
+					})
+				}
+			}`);
 			flow.CreateLayer('default');
 			flow.Layer('default').CreateNode('uuid1', 'sender');
 			flow.Layer('default').Node('uuid1').configure(null);
