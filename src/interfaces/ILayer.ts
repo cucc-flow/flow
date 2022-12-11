@@ -1,18 +1,31 @@
-import { IConnection } from './IConnection';
-import { INode } from './INode';
-
-export type INodeWithPosition = INode & {
-	position: {
+export interface INode {
+	id: string;
+	templateId: string;
+	configuration: any;
+    position: {
 		x: number;
 		y: number;
 	};
-};
+    plugins: INode[];
+}
+
+export interface IConnection {
+    id: string;
+	from: {
+		node: string;
+		output: string;
+	};
+	to: {
+		node: string;
+		input: string;
+	};
+}
 
 export interface ILayer {
 	id: string;
 	name: string;
 	flow: {
-		nodes: INodeWithPosition[];
+		nodes: INode[];
 		connections: IConnection[];
 	};
 }

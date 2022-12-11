@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Layer } from './entities/Layer';
-import { TemplateScope } from './entities/Template';
-import { Flow } from './Flow';
+import { Layer } from './engine/entities/Layer';
+import { TemplateScope } from './engine/entities/Template';
+import { Flow } from './engine/Flow';
 
 describe('FlowService', () => {
 	let flow: Flow;
